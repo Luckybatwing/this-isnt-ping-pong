@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="Paddle" type="Polygon2D"]
+polygon = PoolVector2Array( 0, 0, 25, 0, 25, 100, 0, 100 )
