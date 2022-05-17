@@ -22,3 +22,7 @@ func _process(delta):
 
 	position += velocity * delta
 	position.y = clamp(position.y, 0, screen_size.y - $Paddle.polygon[2].y)
+
+
+func _on_Player_area_entered(area: Area2D):
+	area.direction = area.direction.reflect(Vector2.UP)
