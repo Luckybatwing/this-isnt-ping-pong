@@ -6,7 +6,6 @@ var direction: Vector2
 
 func _ready():
 	var dir = [-PI / 2, PI / 2]
-	dir = [-PI / 2, -PI / 2]
 	randomize()
 
 	direction = Vector2.UP.rotated(rand_range(-PI / 4, PI / 4) + dir[randi() % 2])
