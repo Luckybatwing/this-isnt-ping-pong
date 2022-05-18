@@ -25,4 +25,6 @@ func increment_player_score(player: int):
 
 
 func game_end():
-	assert(get_tree().change_scene("res://scenes/MainMenu.tscn") == OK, "Failed to switch scenes")
+	var err := get_tree().change_scene("res://scenes/MainMenu.tscn")
+
+	assert(err == OK, "Failed to switch scenes")
