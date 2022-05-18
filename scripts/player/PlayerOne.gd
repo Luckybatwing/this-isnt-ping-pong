@@ -1,4 +1,4 @@
-extends "res://Player.gd"
+extends "res://scripts/player/Player.gd"
 
 
 func read_input() -> Vector2:

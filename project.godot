@@ -12,8 +12,8 @@ config_version=4
 
 config/name="Ping Pong"
 config/description="A basic ping pong game."
-run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://scenes/Main.tscn"
+config/icon="res://assets/icon.png"
 
 [display]
 

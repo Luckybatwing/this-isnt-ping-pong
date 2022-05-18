@@ -1,4 +1,4 @@
-extends "res://Player.gd"
+extends "res://scripts/player/Player.gd"
 
 
 func read_input() -> Vector2:
@@ -9,4 +9,3 @@ func read_input() -> Vector2:
 		velocity.y += 1
 
 	return velocity
-
