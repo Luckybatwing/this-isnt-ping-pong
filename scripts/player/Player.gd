@@ -2,6 +2,7 @@ extends Area2D
 
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size: Vector2  # Size of the game window.
+var start_pos := position
 
 
 func _ready():
@@ -25,3 +26,7 @@ func _process(delta: float):
 
 func _on_Player_area_entered(area: Area2D):
 	area.direction = area.direction.reflect(Vector2.UP)
+
+
+func reset():
+	position = start_pos

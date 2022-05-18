@@ -4,14 +4,10 @@ var player_one_score := 0
 var player_two_score := 0
 
 
-func _on_GoalLeft_area_entered(_area: Area2D):
-	increment_player_score(1)
-	game_end()
+func game_end():
+	var err := get_tree().change_scene("res://scenes/MainMenu.tscn")
 
-
-func _on_GoalRight_area_entered(_area: Area2D):
-	increment_player_score(2)
-	game_end()
+	assert(err == OK, "Failed to switch scenes")
 
 
 func increment_player_score(player: int):
@@ -24,7 +20,19 @@ func increment_player_score(player: int):
 			$HUD/PlayerTwoScore.text = str(player_two_score)
 
 
-func game_end():
-	var err := get_tree().change_scene("res://scenes/MainMenu.tscn")
+func _on_GoalLeft_area_entered(_area: Area2D):
+	on_goal(2)
 
-	assert(err == OK, "Failed to switch scenes")
+
+func _on_GoalRight_area_entered(_area: Area2D):
+	on_goal(1)
+
+
+func on_goal(player: int):
+	increment_player_score(player)
+	if player_one_score == 3:
+		game_end()
+	elif player_two_score == 3:
+		game_end()
+	else:
+		get_tree().call_group("bodies", "reset")
