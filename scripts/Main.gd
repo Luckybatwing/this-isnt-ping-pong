@@ -1,5 +1,7 @@
 extends Node
 
+signal round_started
+
 var player_one_score := 0
 var player_two_score := 0
 
@@ -20,12 +22,27 @@ func increment_player_score(player: int):
 			$HUD/PlayerTwoScore.text = str(player_two_score)
 
 
-func _on_GoalLeft_area_entered(_area: Area2D):
-	on_goal(2)
+func round_start():
+	get_tree().call_group("bodies", "reset")
+
+	$HUD/Message.show()
+	$HUD/MessageTimer.start()
+
+	$HUD/Message.text = "Ready?"
+	yield($HUD/MessageTimer, "timeout")
+	$HUD/Message.text = "Set."
+	yield($HUD/MessageTimer, "timeout")
+	$HUD/Message.text = "Go!"
+	yield($HUD/MessageTimer, "timeout")
+
+	$HUD/Message.hide()
+	$HUD/MessageTimer.stop()
+
+	emit_signal("round_started")
 
 
-func _on_GoalRight_area_entered(_area: Area2D):
-	on_goal(1)
+func _ready():
+	round_start()
 
 
 func on_goal(player: int):
@@ -35,4 +52,12 @@ func on_goal(player: int):
 	elif player_two_score == 3:
 		game_end()
 	else:
-		get_tree().call_group("bodies", "reset")
+		round_start()
+
+
+func _on_GoalLeft_area_entered(_area: Area2D):
+	on_goal(2)
+
+
+func _on_GoalRight_area_entered(_area: Area2D):
+	on_goal(1)
