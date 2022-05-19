@@ -26,7 +26,7 @@ func round_start():
 	get_tree().call_group("bodies", "reset")
 
 	$HUD/Message.show()
-	$HUD/MessageTimer.start()
+	$HUD/MessageTimer.start(0.667)
 
 	$HUD/Message.text = "Ready?"
 	yield($HUD/MessageTimer, "timeout")
@@ -52,6 +52,19 @@ func on_goal(player: int):
 	elif player_two_score == 3:
 		game_end()
 	else:
+		$HUD/Message.show()
+		$HUD/MessageTimer.start(2)
+
+		match player:
+			1:
+				$HUD/Message.text = "Player 1 scores!"
+			2:
+				$HUD/Message.text = "Player 2 scores!"
+		yield($HUD/MessageTimer, "timeout")
+
+		$HUD/Message.hide()
+		$HUD/MessageTimer.stop()
+
 		round_start()
 
 
