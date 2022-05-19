@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Ping Pong"
-config/description="A simple game based off the classic \"Pong\"."
+config/name="This Isn't Ping Pong"
+config/description="Wait... this isn't ping pong!?!"
 run/main_scene="res://scenes/MainMenu.tscn"
 config/icon="res://assets/icon.png"
 
