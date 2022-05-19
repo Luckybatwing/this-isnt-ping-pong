@@ -6,7 +6,21 @@ var player_one_score := 0
 var player_two_score := 0
 
 
-func game_end():
+func game_end(player: int):
+	$HUD/Message.show()
+
+	match player:
+		1:
+			$HUD/Message.text = "Player 1 wins!"
+		2:
+			$HUD/Message.text = "Player 2 wins!"
+
+	yield(get_tree().create_timer(1.5), "timeout")
+
+	$MainMenuButton.show()
+
+
+func _on_Button_pressed():
 	var err := get_tree().change_scene("res://scenes/MainMenu.tscn")
 
 	assert(err == OK, "Failed to switch scenes")
@@ -48,9 +62,9 @@ func _ready():
 func on_goal(player: int):
 	increment_player_score(player)
 	if player_one_score == 3:
-		game_end()
+		game_end(1)
 	elif player_two_score == 3:
-		game_end()
+		game_end(2)
 	else:
 		$HUD/Message.show()
 		$HUD/MessageTimer.start(2)
