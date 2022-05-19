@@ -5,17 +5,17 @@ var direction := Vector2.ZERO
 var start_pos := position
 
 
-func reset():
+func reset() -> void:
 	direction = Vector2.ZERO
 	position = start_pos
 
 
-func _process(delta):
+func _process(delta) -> void:
 	position += direction * speed * delta
 
 
-func _on_Main_round_started():
+func _on_Main_round_started() -> void:
 	randomize()
 
-	var dir = [-PI / 2, PI / 2]
-	direction = Vector2.UP.rotated(rand_range(-PI / 4, PI / 4) + dir[randi() % 2])
+	var left_or_right := -PI / 2 if randi() % 2 else PI / 2
+	direction = Vector2.UP.rotated(rand_range(-PI / 4, PI / 4) + left_or_right)
