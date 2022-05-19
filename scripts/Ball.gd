@@ -1,10 +1,11 @@
 extends Area2D
 
-export var speed := 100  # How fast the ball will move (pixels/sec).
-var direction := Vector2.ZERO
-var start_pos := position
+export var speed := 100  # Speed (pixels/sec)
+var direction := Vector2.ZERO  # Direction the ball is moving
+var start_pos := position  # Starting position
 
 
+# Reset to starting position and stop movement
 func reset() -> void:
 	direction = Vector2.ZERO
 	position = start_pos
@@ -14,6 +15,7 @@ func _process(delta) -> void:
 	position += direction * speed * delta
 
 
+# Set a random direction
 func _on_Main_round_started() -> void:
 	randomize()
 

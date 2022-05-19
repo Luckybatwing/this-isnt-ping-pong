@@ -1,14 +1,15 @@
 extends Area2D
 
-export var speed := 400  # How fast the player will move (pixels/sec).
-var screen_size: Vector2  # Size of the game window.
-var start_pos := position
+export var speed := 400  # Speed (pixels/sec)
+var screen_size: Vector2  # Size of the game window
+var start_pos := position  # Starting position
 
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 
+# Returns a direction(2D vector) from input
 func read_input():
 	assert(false, "Method not overridden")
 
@@ -23,9 +24,11 @@ func _process(delta: float) -> void:
 	)
 
 
+# Reflect ball on collision
 func _on_Player_area_entered(area: Area2D) -> void:
 	area.direction = area.direction.reflect(Vector2.UP)
 
 
+# Reset to starting position
 func reset() -> void:
 	position = start_pos

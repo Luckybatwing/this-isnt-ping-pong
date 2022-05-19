@@ -6,6 +6,7 @@ var player_one_score := 0
 var player_two_score := 0
 
 
+# Show `player`'s winning screen and the back button
 func game_end(player: int) -> void:
 	$HUD/Message.show()
 
@@ -20,11 +21,13 @@ func game_end(player: int) -> void:
 	$MainMenuButton.show()
 
 
+# Go back to main menu
 func _on_Button_pressed() -> void:
 	var err := get_tree().change_scene("res://scenes/MainMenu.tscn")
 	assert(err == OK, "Failed to switch scenes")
 
 
+# Update `player`'s score and label
 func increment_player_score(player: int) -> void:
 	match player:
 		1:
@@ -35,9 +38,8 @@ func increment_player_score(player: int) -> void:
 			$HUD/PlayerTwoScore.text = str(player_two_score)
 
 
-func round_start() -> void:
-	get_tree().call_group("bodies", "reset")
-
+# Start round countdown and emit start signal
+func round_countdown() -> void:
 	$HUD/Message.show()
 	$HUD/MessageTimer.start(0.667)
 
@@ -55,9 +57,10 @@ func round_start() -> void:
 
 
 func _ready() -> void:
-	round_start()
+	round_countdown()
 
 
+# Update `player`'s score, show score message, and restart round
 func on_goal(player: int) -> void:
 	increment_player_score(player)
 	if player_one_score == 3:
@@ -78,12 +81,15 @@ func on_goal(player: int) -> void:
 		$HUD/Message.hide()
 		$HUD/MessageTimer.stop()
 
-		round_start()
+		get_tree().call_group("bodies", "reset")
+		round_countdown()
 
 
+# On ball collision, player 2 scores
 func _on_GoalLeft_area_entered(_area: Area2D) -> void:
 	on_goal(2)
 
 
+# On ball collision, player 1 scores
 func _on_GoalRight_area_entered(_area: Area2D) -> void:
 	on_goal(1)
