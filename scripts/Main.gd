@@ -86,10 +86,10 @@ func on_goal(player: int) -> void:
 
 
 # On ball collision, player 2 scores
-func _on_GoalLeft_area_entered(_area: Area2D) -> void:
+func _on_GoalLeft_body_entered(_body: Node) -> void:
 	on_goal(2)
 
 
 # On ball collision, player 1 scores
-func _on_GoalRight_area_entered(_area: Area2D) -> void:
+func _on_GoalRight_body_entered(_body: Node) -> void:
 	on_goal(1)

@@ -47,7 +47,8 @@ move_down_p2={
 
 [layer_names]
 
-2d_physics/layer_1="Ball"
+2d_physics/layer_1="Enviroment"
+2d_physics/layer_2="Ball"
 
 [physics]
 

@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 export var speed := 400  # Speed (pixels/sec)
 var screen_size: Vector2  # Size of the game window
@@ -14,14 +14,10 @@ func read_input():
 	assert(false, "Method not overridden")
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var direction: Vector2 = read_input()
 
-	position += direction * speed * delta
-
-	position.y = clamp(
-		position.y, $Paddle.polygon[2].y / 2, screen_size.y - ($Paddle.polygon[2].y / 2)
-	)
+	var _collision := move_and_collide(direction * speed * delta)
 
 
 # Reflect ball on collision

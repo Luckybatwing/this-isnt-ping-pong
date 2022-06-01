@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 export var speed := 100  # Speed (pixels/sec)
 var direction := Vector2.ZERO  # Direction the ball is moving
@@ -11,8 +11,11 @@ func reset() -> void:
 	position = start_pos
 
 
-func _process(delta) -> void:
-	position += direction * speed * delta
+func _physics_process(delta: float) -> void:
+	var collision := move_and_collide(direction * speed * delta)
+
+	if collision:
+		direction = direction.bounce(collision.normal)
 
 
 # Set a random direction
