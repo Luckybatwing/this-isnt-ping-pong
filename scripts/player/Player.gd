@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
 export var acceleration := 40.0  # pixels/sec
-export var max_velocity := 400.0  # pixels/sec
+export var starting_max_velocity := 400.0  # pixels/sec
+export var max_velocity_increase := 5.0  # pixels/sec
+var max_velocity := starting_max_velocity
 var velocity := Vector2.ZERO
 var screen_size: Vector2  # Size of the game window
 var start_pos := position  # Starting position
@@ -17,6 +19,8 @@ func read_input():
 
 
 func _physics_process(delta: float) -> void:
+	max_velocity += max_velocity_increase * delta
+
 	var direction: Vector2 = read_input()
 	if direction:
 		velocity += direction * (acceleration * delta)
@@ -38,3 +42,4 @@ func _on_Player_area_entered(area: Area2D) -> void:
 func reset() -> void:
 	position = start_pos
 	velocity = Vector2.ZERO
+	max_velocity = starting_max_velocity
