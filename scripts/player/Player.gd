@@ -5,12 +5,7 @@ export var starting_max_velocity := 400.0  # pixels/sec
 export var max_velocity_increase := 5.0  # pixels/sec
 var max_velocity := starting_max_velocity
 var velocity := Vector2.ZERO
-var screen_size: Vector2  # Size of the game window
 var start_pos := position  # Starting position
-
-
-func _ready() -> void:
-	screen_size = get_viewport_rect().size
 
 
 # Returns a direction(2D vector) from input
