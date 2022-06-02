@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
-export var speed := 400  # Speed (pixels/sec)
+export var acceleration := 40.0  # pixels/sec
+export var max_velocity := 400.0  # pixels/sec
+var velocity := Vector2.ZERO
 var screen_size: Vector2  # Size of the game window
 var start_pos := position  # Starting position
 
@@ -16,8 +18,15 @@ func read_input():
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = read_input()
+	if direction:
+		velocity += direction * (acceleration * delta)
+		velocity = velocity.clamped(max_velocity * delta)
+	else:
+		velocity = velocity.linear_interpolate(Vector2.ZERO, 0.15)
 
-	var _collision := move_and_collide(direction * speed * delta)
+	var collision := move_and_collide(velocity)
+	if collision and collision.collider is StaticBody2D:
+		velocity = Vector2.ZERO
 
 
 # Reflect ball on collision
@@ -28,3 +37,4 @@ func _on_Player_area_entered(area: Area2D) -> void:
 # Reset to starting position
 func reset() -> void:
 	position = start_pos
+	velocity = Vector2.ZERO
