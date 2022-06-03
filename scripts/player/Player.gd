@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 
 	var collision := move_and_collide(velocity)
 	if collision and collision.collider is StaticBody2D:
-		velocity = Vector2.ZERO
+		velocity = velocity.rotated(PI) * 0.5
 
 
 # Reflect ball on collision
