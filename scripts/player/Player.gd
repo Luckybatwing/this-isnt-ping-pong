@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var acceleration := 40.0  # pixels/sec
 export var starting_max_velocity := 400.0  # pixels/sec
 export var max_velocity_increase := 5.0  # pixels/sec
-var max_velocity := starting_max_velocity
+onready var max_velocity := starting_max_velocity
 var velocity := Vector2.ZERO
 var start_pos := position  # Starting position
 

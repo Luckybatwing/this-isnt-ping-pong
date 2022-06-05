@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var starting_speed := 250.0  # pixels/sec
 export var speed_increase := 10.0  # pixels/sec
-var speed := starting_speed
+onready var speed := starting_speed
 var direction := Vector2.ZERO  # Direction the ball is moving
 var start_pos := position  # Starting position
 
