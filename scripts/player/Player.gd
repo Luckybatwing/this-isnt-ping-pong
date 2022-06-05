@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const Ball := preload("res://scripts/Ball.gd")
+
 export var acceleration := 40.0  # pixels/sec
 export var starting_max_velocity := 400.0  # pixels/sec
 export var max_velocity_increase := 5.0  # pixels/sec
@@ -18,14 +20,29 @@ func _physics_process(delta: float) -> void:
 
 	var direction: Vector2 = read_input()
 	if direction:
-		velocity += direction * (acceleration * delta)
-		velocity = velocity.clamped(max_velocity * delta)
+		velocity += direction * acceleration
+		velocity = velocity.clamped(max_velocity)
 	else:
 		velocity = velocity.linear_interpolate(Vector2.ZERO, 0.15)
 
-	var collision := move_and_collide(velocity)
-	if collision and collision.collider is StaticBody2D:
-		velocity = velocity.rotated(PI) * 0.5
+	var collision := move_and_collide(velocity * delta)
+
+	if collision:
+		if collision.collider is StaticBody2D:
+			velocity = velocity.rotated(PI) * 0.5
+		elif collision.collider is Ball and (collision.normal.abs() == Vector2.DOWN):
+			var ball := collision.collider as Ball
+
+			# ball.speed = 10
+			# ball.speed_increase = 0
+			# ball.direction = Vector2.LEFT
+
+			var ball_collision := ball.move_and_collide(velocity * delta)
+
+			move_and_collide(collision.remainder)
+
+			if ball_collision:
+				print_debug(ball_collision.collider)
 
 
 # Reflect ball on collision
