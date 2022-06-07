@@ -19,7 +19,12 @@ func _physics_process(delta: float) -> void:
 
 	var collision := move_and_collide(direction * speed * delta)
 	if collision:
-		direction = direction.bounce(collision.normal)
+		if collision.collider is StaticBody2D:
+			direction = direction.bounce(collision.normal)
+		elif collision.normal.abs() != Vector2.DOWN:
+			# collision.collider is KinematicBody2D
+			randomize()
+			direction = collision.normal.rotated(rand_range(-PI / 3, PI / 3))
 
 
 # Set a random direction
